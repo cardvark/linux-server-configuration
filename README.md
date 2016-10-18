@@ -76,7 +76,7 @@ Ubuntu linux server hosted on AWS EC2 with apache2 web server, flask app, postgr
   * /var/www/Catalog/Catalog
 * Branched [item catalog project repo](https://github.com/cardvark/item-catalog-project/tree/ec2-postgres-server) on local machine to make changes.
   * Replaced SQLite db with PostgreSQL, log in with catalog role ([Line 10](https://github.com/cardvark/item-catalog-project/blob/ec2-postgres-server/database_setup_catalog.py))
-  * Renamed main python file to [__init__.py](https://github.com/cardvark/item-catalog-project/blob/ec2-postgres-server/__init__.py)
+  * Renamed main python file to [\_\_init\_\_.py](https://github.com/cardvark/item-catalog-project/blob/ec2-postgres-server/__init__.py)
   * Set absolute file paths for 'client_secrets.json' and 'fb_client_secrets.json' [Lines 29, 245, 334](https://github.com/cardvark/item-catalog-project/blob/ec2-postgres-server/__init__.py)
 * Set up virtual environment
   * `sudo virtualenv venv`  // name for virtual environment, stored as directory in ../Catalog/Catalog
@@ -90,6 +90,6 @@ Ubuntu linux server hosted on AWS EC2 with apache2 web server, flask app, postgr
   * `sudo a2ensite Catalog`  // enable Catalog site; viewable in /etc/apache2/sites-available, linked in ../sites-enabled
   * `sudo a2dissite 000-default.conf`  // disabled default apache2 page.  Removed symlink in ../sites-enabled
 * Create .wsgi file
-  * `sudo vim /var/www/Catalog/CatalogApp.wsgi`  // set path, import app (from __init__.py in Catalog), moved application secret here.
+  * `sudo vim /var/www/Catalog/CatalogApp.wsgi`  // set path, import app (from \_\_init\_\_.py in Catalog), moved application secret here.
 * `sudo service apache2 restart`  // restarted apache server
   
