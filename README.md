@@ -12,14 +12,17 @@ Ubuntu linux server hosted on AWS EC2 with apache2 web server, flask app, postgr
 * Login via: `ssh grader@52.42.219.117 -i ~/.ssh/<key_file> -p 2200`
 
 ## Packages installed
-* `sudo apt-get install finger`  // finger
-* `sudo apt-get install ntp`  // NTP (network time protocol)
-* `sudo apt-get install apache2`  // apache http web server
-* `sudo apt-get install libapache2-mod-wsgi`  // mod_wsgi - Apache module for WSGI compliant hosting python web apps
-* `sudo apt-get install postgresql`  // postgresql for db management
-* `sudo apt-get install python-pip`  // `pip` command for python packages
-* `sudo pip install virtualenv`  // virtualenv for isolated python environments
-* `sudo pip install Flask`  // Flask python web framework
+* `sudo apt-get install finger`  // [finger](http://manpages.ubuntu.com/manpages/precise/man1/finger.1.html)
+* `sudo apt-get install ntp`  // [NTP](http://www.ntp.org/) (network time protocol)
+* `sudo apt-get install apache2`  // [Apache](https://httpd.apache.org/) http web server
+* `sudo apt-get install libapache2-mod-wsgi`  // [mod_wsgi](https://modwsgi.readthedocs.io/en/develop/) - Apache module for WSGI compliant hosting python web apps
+* `sudo apt-get install postgresql`  // [PostgreSQL](https://www.postgresql.org/) for db management
+* `sudo apt-get install python-pip`  // [`pip`](https://pypi.python.org/pypi/pip) command for python packages
+* `sudo pip install virtualenv`  // [virtualenv](https://virtualenv.pypa.io/en/stable/) for isolated python environments
+* `sudo pip install Flask`  // [Flask](http://flask.pocoo.org/) python web framework
+* `sudo pip install sqlalchemy`  // [SQLAlchemy](http://www.sqlalchemy.org/) ORM
+* `sudo pip install psycopg2`  // [PostgreSQL](http://initd.org/psycopg/) ORM
+* `sudo apt-get install libpq-dev`  // [Contains binaries and headers required for building 3rd party apps with PostgreSQL](https://pypi.python.org/pypi/libpq-dev/9.0.0)
 
 ## Configurations
 * Update and upgrade all packages
@@ -65,3 +68,25 @@ Ubuntu linux server hosted on AWS EC2 with apache2 web server, flask app, postgr
     * linux user 'catalog'.  No sudo privileges
     * postgresql role 'catalog'.  No create db, no create role, not super user.
     * postgresql DB 'catalog'.  Database for storing item catalog app data.
+    
+## Project set up
+* [Digital Ocean reference link](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps)
+* `sudo a2enmod wsgi`  // enables wsgi apache module.  Viewable in /etc/apache2/mods-enabled.
+* Created project location:
+  * /var/www/Catalog/Catalog
+* Branched [item catalog project repo](https://github.com/cardvark/item-catalog-project/tree/ec2-postgres-server) on local machine to make changes.
+  * Replaced SQLite db with PostgreSQL, log in with catalog role ([Line 10](https://github.com/cardvark/item-catalog-project/blob/ec2-postgres-server/database_setup_catalog.py))
+  * Renamed main python file to [__init__.py](https://github.com/cardvark/item-catalog-project/blob/ec2-postgres-server/__init__.py)
+  * Set absolute file paths for 'client_secrets.json' and 'fb_client_secrets.json' [Lines 29, 245, 334](https://github.com/cardvark/item-catalog-project/blob/ec2-postgres-server/__init__.py)
+* Set up virtual environment
+  * `sudo virtualenv venv`  // name for virtual environment, stored as directory in ../Catalog/Catalog
+  * `source venv/bin/activate`  // activated venv virtual environment
+  * `sudo pip install Flask`
+  * `sudo pip install sqlalchemy`
+  * `sudo pip install psycopg2`
+  * `deactivate` // to leave virtual environment
+* Configure new virtual host
+  * `sudo vim /etc/apache2/sites-available/Catalog.conf`  // Set up ServerName, WSGIScriptAlias path, Alias paths for /static and /templates
+  * `sudo a2ensite Catalog`  // enable Catalog site; viewable in /etc/apache2/sites-available, linked in ../sites-enabled
+  * `sudo a2dissite 000-default.conf`  // disabled default apache2 page.  Removed symlink in ../sites-enabled
+  
