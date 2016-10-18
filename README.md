@@ -14,6 +14,12 @@ Ubuntu linux server hosted on AWS EC2 with apache2 web server, flask app, postgr
 ## Packages installed
 * `sudo apt-get install finger`  // finger
 * `sudo apt-get install ntp`  // NTP (network time protocol)
+* `sudo apt-get install apache2`  // apache http web server
+* `sudo apt-get install libapache2-mod-wsgi`  // mod_wsgi - Apache module for WSGI compliant hosting python web apps
+* `sudo apt-get install postgresql`  // postgresql for db management
+* `sudo apt-get install python-pip`  // `pip` command for python packages
+* `sudo pip install virtualenv`  // virtualenv for isolated python environments
+* `sudo pip install Flask`  // Flask python web framework
 
 ## Configurations
 * Update and upgrade all packages
@@ -35,12 +41,27 @@ Ubuntu linux server hosted on AWS EC2 with apache2 web server, flask app, postgr
         * `sudo chmod 644 ~/.ssh/authorized_keys`
 * Updated sshd_config file:
   * `sudo vim /etc/ssh/sshd_config`
+  * Listening on Port 22 to '2200'
   * Set PasswordAuthentication to 'no'
   * Set PermitRootLogin to 'no' (after confirming ability to log in as grader and use sudo)
 * Set up firewall ports:
   * `sudo ufw default deny incoming`
   * `sudo ufw default allow outgoing`
   * `sudo ufw allow 2200/tcp`  // for SSH
-  * 
+  * `sudo ufw allow www`  // default 80
+  * `sudo ufw allow ntp`  // default 123
 * Change timezone to UTC:
   * `sudo dpkg-reconfigure tzdata`
+* Add catalog user:
+  * `sudo adduser catalog`
+* Postgresql db management:
+  * `sudo -i -u postgres`  // switch to postgres db super user
+  * `sudo createuser -D -R -S catalog`  // create new user 'catalog' -No database creation, -No role creation, -Not superuser.
+  * `createdb catalog`  // create new catalog db
+  * `psql`  // enter postgresql interactive shell
+  * `ALTER USER catalog PASSWORD '<password>';`  // Gave catalog role a password
+  * `ALTER DATABASE catalog OWNER TO catalog;`  // Change catalog DB owner to catalog role.
+  * Note - 3 'catalog' names in use:
+    * linux user 'catalog'.  No sudo privileges
+    * postgresql role 'catalog'.  No create db, no create role, not super user.
+    * postgresql DB 'catalog'.  Database for storing item catalog app data.
