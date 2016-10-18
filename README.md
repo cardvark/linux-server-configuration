@@ -89,4 +89,7 @@ Ubuntu linux server hosted on AWS EC2 with apache2 web server, flask app, postgr
   * `sudo vim /etc/apache2/sites-available/Catalog.conf`  // Set up ServerName, WSGIScriptAlias path, Alias paths for /static and /templates
   * `sudo a2ensite Catalog`  // enable Catalog site; viewable in /etc/apache2/sites-available, linked in ../sites-enabled
   * `sudo a2dissite 000-default.conf`  // disabled default apache2 page.  Removed symlink in ../sites-enabled
+* Create .wsgi file
+  * `sudo vim /var/www/Catalog/CatalogApp.wsgi`  // set path, import app (from __init__.py in Catalog), moved application secret here.
+* `sudo service apache2 restart`  // restarted apache server
   
