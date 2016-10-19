@@ -70,7 +70,6 @@ Ubuntu linux server hosted on AWS EC2 with apache2 web server, flask app, postgr
     * postgresql DB 'catalog'.  Database for storing item catalog app data.
     
 ## Project set up
-* [Digital Ocean reference link](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps)
 * `sudo a2enmod wsgi`  // enables wsgi apache module.  Viewable in /etc/apache2/mods-enabled.
 * Created project location:
   * /var/www/Catalog/Catalog
@@ -92,4 +91,11 @@ Ubuntu linux server hosted on AWS EC2 with apache2 web server, flask app, postgr
 * Create .wsgi file
   * `sudo vim /var/www/Catalog/CatalogApp.wsgi`  // set path, import app (from \_\_init\_\_.py in Catalog), moved application secret here.
 * `sudo service apache2 restart`  // restarted apache server
-  
+
+## Resources
+* [Deploying a Flask app on Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps)
+* [Configuring time to UTC](https://help.ubuntu.com/community/UbuntuTime)
+* [Disabling root remote login](https://mediatemple.net/community/products/dv/204643810/how-do-i-disable-ssh-login-for-the-root-user)
+* [Creating new role in PostgreSQL](https://www.postgresql.org/docs/9.2/static/app-createuser.html)
+* [Altering database properties](https://www.postgresql.org/docs/9.1/static/sql-alterdatabase.html)
+* [Stack Overflow](http://stackoverflow.com/ "All night long.")
