@@ -48,6 +48,7 @@ Ubuntu linux server hosted on AWS EC2 with apache2 web server, flask app, postgr
   * Listening on Port 22 to '2200'
   * Set PasswordAuthentication to 'no'
   * Set PermitRootLogin to 'no' (after confirming ability to log in as grader and use sudo)
+  * `sudo service ssh restart`
 * Set up firewall ports:
   * `sudo ufw default deny incoming`
   * `sudo ufw default allow outgoing`
