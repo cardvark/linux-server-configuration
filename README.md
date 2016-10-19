@@ -18,6 +18,7 @@ Ubuntu linux server hosted on AWS EC2 with apache2 web server, flask app, postgr
 * `sudo apt-get install libapache2-mod-wsgi`  // [mod_wsgi](https://modwsgi.readthedocs.io/en/develop/) - Apache module for WSGI compliant hosting python web apps
 * `sudo apt-get install postgresql`  // [PostgreSQL](https://www.postgresql.org/) for db management
 * `sudo apt-get install python-pip`  // [`pip`](https://pypi.python.org/pypi/pip) command for python packages
+* `sudo apt-get install git-all`  // [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 * `sudo pip install virtualenv`  // [virtualenv](https://virtualenv.pypa.io/en/stable/) for isolated python environments
 * `sudo pip install Flask`  // [Flask](http://flask.pocoo.org/) python web framework
 * `sudo pip install sqlalchemy`  // [SQLAlchemy](http://www.sqlalchemy.org/) ORM
@@ -38,7 +39,7 @@ Ubuntu linux server hosted on AWS EC2 with apache2 web server, flask app, postgr
       * `ssh key-gen`  // Generate key
       * Copied contents of .pub file
     * On remote server:
-      * `sudo vim ~/.ssh/authorized_keys`  // Pasted contents of pub key to (in grader home dir)
+      * `sudo vim ~/.ssh/authorized_keys`  // Pasted contents of pub key (in grader user home dir)
       * Set permissions for folder and file:
         * `sudo chmod 700 ~/.ssh`
         * `sudo chmod 644 ~/.ssh/authorized_keys`
@@ -53,6 +54,7 @@ Ubuntu linux server hosted on AWS EC2 with apache2 web server, flask app, postgr
   * `sudo ufw allow 2200/tcp`  // for SSH
   * `sudo ufw allow www`  // default 80
   * `sudo ufw allow ntp`  // default 123
+  * `sudo ufw enable`  // turn on firewall, cross fingers.
 * Change timezone to UTC:
   * `sudo dpkg-reconfigure tzdata`
 * Add catalog user:
@@ -77,6 +79,8 @@ Ubuntu linux server hosted on AWS EC2 with apache2 web server, flask app, postgr
   * Replaced SQLite db with PostgreSQL, log in with catalog role ([Line 10](https://github.com/cardvark/item-catalog-project/blob/ec2-postgres-server/database_setup_catalog.py))
   * Renamed main python file to [\_\_init\_\_.py](https://github.com/cardvark/item-catalog-project/blob/ec2-postgres-server/__init__.py)
   * Set absolute file paths for 'client_secrets.json' and 'fb_client_secrets.json' [Lines 29, 245, 334](https://github.com/cardvark/item-catalog-project/blob/ec2-postgres-server/__init__.py)
+  * `sudo git clone <link> .`  // cloned into remote environment, in ../Catalog/Catalog
+  * `sudo git checkout <branch name>`  // switched to branch with EC2 server and PostgreSQL modifications.
 * Set up virtual environment
   * `sudo virtualenv venv`  // name for virtual environment, stored as directory in ../Catalog/Catalog
   * `source venv/bin/activate`  // activated venv virtual environment
